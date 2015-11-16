@@ -3,7 +3,7 @@
 
   <groupId>com.github.searls</groupId>
   <artifactId>jasmine-maven-plugin</artifactId>
-  <version>2.1-invenia-SNAPSHOT</version>
+  <version>2.1-invenia-1</version>
   <packaging>maven-plugin</packaging>
 
   <name>jasmine-maven-plugin</name>
@@ -118,9 +118,13 @@
     <tag>HEAD</tag>
   </scm>
   <distributionManagement>
+    <repository>
+      <id>invenia-repository</id>
+      <url>https://nexus.ensafer.no/content/repositories/releases</url>
+    </repository>
     <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+      <id>invenia-repository</id>
+      <url>https://nexus.ensafer.no/content/repositories/snapshots</url>
     </snapshotRepository>
   </distributionManagement>
   <issueManagement>
