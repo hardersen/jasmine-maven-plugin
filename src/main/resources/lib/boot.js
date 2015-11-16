@@ -70,6 +70,14 @@
       return env.afterEach(afterEachFunction);
     },
 
+    beforeAll: function(beforeAllFunction) {
+      return env.beforeAll(beforeAllFunction);
+    },
+
+    afterAll: function(afterAllFunction) {
+      return env.afterAll(afterAllFunction);
+    },
+
     expect: function(actual) {
       return env.expect(actual);
     },
