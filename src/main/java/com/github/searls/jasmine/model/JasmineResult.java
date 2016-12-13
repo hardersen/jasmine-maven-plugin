@@ -2,7 +2,7 @@ package com.github.searls.jasmine.model;
 
 
 public class JasmineResult {
-  private String details;
+  private String details = "";
 
   public String getDescription() {
     return last(getDetails().split("\n"));
@@ -21,7 +21,7 @@ public class JasmineResult {
   }
 
   private <T> T last(T[] array) {
-      return array[array.length - 1];
+    return array[array.length - 1];
   }
 
 }

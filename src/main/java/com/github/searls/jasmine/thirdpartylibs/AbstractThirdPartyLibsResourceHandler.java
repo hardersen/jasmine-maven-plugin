@@ -8,8 +8,8 @@ import org.eclipse.jetty.server.handler.ResourceHandler;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
@@ -26,6 +26,9 @@ public abstract class AbstractThirdPartyLibsResourceHandler extends ResourceHand
 
     if (resource != null) {
       String javascript = IOUtils.toString(resource, "UTF-8");
+      if ("/jasmine/boot.js".equals(target)) {
+        javascript = javascript.replaceAll("window.onload =", "jasmine.boot =");
+      }
       setHeaders(response, resourcePath, javascript);
       writeResponse(response, javascript);
       baseRequest.setHandled(true);

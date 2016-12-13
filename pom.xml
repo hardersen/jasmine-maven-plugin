@@ -3,7 +3,7 @@
 
   <groupId>com.github.searls</groupId>
   <artifactId>jasmine-maven-plugin</artifactId>
-  <version>2.1-invenia-2-SNAPSHOT</version>
+  <version>2.3-invenia-1-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
 
   <name>jasmine-maven-plugin</name>
@@ -110,6 +110,10 @@
       <name>Todd Quessenberry</name>
       <url>https://github.com/toddq</url>
     </contributor>
+    <contributor>
+      <name>Sam Jones</name>
+      <url>https://github.com/samjonester</url>
+    </contributor>
   </contributors>
   <scm>
     <url>https://github.com/searls/jasmine-maven-plugin</url>
@@ -136,17 +140,21 @@
     <url>https://travis-ci.org/searls/jasmine-maven-plugin</url>
   </ciManagement>
   <properties>
-    <powermock.version>1.6.2</powermock.version>
-    <jetty.version>8.1.14.v20131031</jetty.version>
-    <selenium.version>2.45.0</selenium.version>
-    <jasmine.version>2.3.0</jasmine.version>
+    <powermock.version>1.6.5</powermock.version>
+    <jetty.version>8.2.0.v20160908</jetty.version>
+    <selenium.version>2.53.1</selenium.version>
+    <jasmine.version>2.4.1</jasmine.version>
+    <htmlunit.version>2.19</htmlunit.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <java.version>1.6</java.version>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
   </properties>
 
-	<prerequisites>
-	  <maven>3.1.0</maven>
-	</prerequisites>
+  <prerequisites>
+    <maven>3.1.0</maven>
+  </prerequisites>
 
   <dependencies>
     <!-- Mojo Dependencies -->
@@ -242,7 +250,7 @@
     <dependency>
       <groupId>org.webjars</groupId>
       <artifactId>webjars-locator</artifactId>
-      <version>0.21</version>
+      <version>0.29</version>
     </dependency>
     <dependency>
       <groupId>org.webjars.bower</groupId>
@@ -252,12 +260,12 @@
     <dependency>
       <groupId>net.sourceforge.htmlunit</groupId>
       <artifactId>htmlunit</artifactId>
-      <version>2.14</version>
+      <version>${htmlunit.version}</version>
     </dependency>
     <dependency>
       <groupId>com.github.klieber</groupId>
       <artifactId>phantomjs-maven-core</artifactId>
-      <version>0.6</version>
+      <version>0.7</version>
     </dependency>
 
     <!-- Plugin test deps -->
@@ -311,7 +319,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-release-plugin</artifactId>
-          <version>2.5.1</version>
+          <version>2.5.3</version>
           <configuration>
             <autoVersionSubmodules>true</autoVersionSubmodules>
             <useReleaseProfile>false</useReleaseProfile>
@@ -322,7 +330,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-resources-plugin</artifactId>
-          <version>2.7</version>
+          <version>3.0.1</version>
           <configuration>
             <useDefaultDelimiters>false</useDefaultDelimiters>
             <delimiters>
@@ -333,7 +341,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-site-plugin</artifactId>
-          <version>3.4</version>
+          <version>3.5.1</version>
           <configuration>
             <skipDeploy>true</skipDeploy>
             <attributes>
@@ -345,14 +353,14 @@
             <dependency>
               <groupId>org.apache.maven.doxia</groupId>
               <artifactId>doxia-module-markdown</artifactId>
-              <version>1.6</version>
+              <version>1.7</version>
             </dependency>
           </dependencies>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-clean-plugin</artifactId>
-          <version>2.6.1</version>
+          <version>3.0.0</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -372,17 +380,22 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-jar-plugin</artifactId>
-          <version>2.5</version>
+          <version>3.0.2</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-source-plugin</artifactId>
-          <version>2.4</version>
+          <version>3.0.1</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
-          <version>2.10.1</version>
+          <version>2.10.4</version>
+        </plugin>
+        <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>0.7.7.201606060606</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -390,7 +403,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-plugin-plugin</artifactId>
-        <version>3.4</version>
+        <version>3.5</version>
         <configuration>
           <goalPrefix>jasmine</goalPrefix>
           <!-- see http://jira.codehaus.org/browse/MNG-5346 -->
@@ -414,16 +427,12 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.2</version>
-        <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
-        </configuration>
+        <version>3.5.1</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.18.1</version>
+        <version>2.19.1</version>
         <configuration>
           <excludes>
             <exclude>**/*IntegrationTest.java</exclude>
@@ -433,7 +442,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
-        <version>2.18.1</version>
+        <version>2.19.1</version>
         <executions>
           <execution>
             <id>integration-test</id>
@@ -457,7 +466,6 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.7.4.201502262128</version>
         <executions>
           <execution>
             <goals>
@@ -469,7 +477,7 @@
           <excludes>
             <exclude>com/github/searls/jasmine/mojo/HelpMojo*</exclude>
             <!-- prevent 'Method code too large' exception -->
-            <!-- see http://goo.gl/5THrnt --> 
+            <!-- see http://goo.gl/5THrnt -->
             <exclude>**com.steadystate*</exclude>
           </excludes>
         </configuration>
@@ -477,12 +485,12 @@
       <plugin>
         <groupId>org.eluder.coveralls</groupId>
         <artifactId>coveralls-maven-plugin</artifactId>
-        <version>3.0.1</version>
+        <version>4.2.0</version>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
-        <version>1.9.1</version>
+        <version>1.12</version>
         <executions>
           <execution>
             <phase>pre-site</phase>
@@ -493,18 +501,21 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>com.github.github</groupId>
-        <artifactId>site-maven-plugin</artifactId>
-        <version>0.12</version>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-scm-publish-plugin</artifactId>
+        <version>1.0</version>
         <configuration>
-          <message>Generating site for ${project.version}</message>
-          <server>github</server>
-          <noJekyll>true</noJekyll>
+          <checkoutDirectory>${project.build.directory}/scmpublish</checkoutDirectory>
+          <checkinComment>Generating site for ${project.version}</checkinComment>
+          <content>${project.reporting.outputDirectory}</content>
+          <skipDeletedFiles>true</skipDeletedFiles>
+          <pubScmUrl>scm:git:git@github.com:searls/jasmine-maven-plugin.git</pubScmUrl>
+          <scmBranch>gh-pages</scmBranch>
         </configuration>
         <executions>
           <execution>
             <goals>
-              <goal>site</goal>
+              <goal>publish-scm</goal>
             </goals>
             <phase>site-deploy</phase>
           </execution>
@@ -514,7 +525,7 @@
       <plugin>
         <groupId>org.sonatype.plugins</groupId>
         <artifactId>nexus-staging-maven-plugin</artifactId>
-        <version>1.6.5</version>
+        <version>1.6.7</version>
         <extensions>true</extensions>
         <configuration>
           <serverId>invenia-repository</serverId>
@@ -545,7 +556,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>2.8</version>
+        <version>2.9</version>
         <reportSets>
           <reportSet>
             <reports>
@@ -566,7 +577,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-changes-plugin</artifactId>
-        <version>2.11</version>
+        <version>2.12</version>
         <configuration>
           <columnNames>Id,Summary,Reporter,Assignee,Status,Type,Created,Fix Version</columnNames>
         </configuration>
@@ -586,17 +597,16 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-report-plugin</artifactId>
-        <version>2.18.1</version>
+        <version>2.19.1</version>
       </plugin>
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.7.4.201502262128</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.4</version>
+        <version>3.6</version>
         <configuration>
           <rulesets>
             <ruleset>/rulesets/java/basic.xml</ruleset>
