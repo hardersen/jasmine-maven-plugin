@@ -190,8 +190,13 @@ public class TestMojo extends AbstractJasmineMojo {
   public void run() throws Exception {
     ServerManager serverManager = this.getServerManager();
     try {
-      int port = serverManager.start();
-      setPortProperty(port);
+      int port = this.serverPort;
+      if (port == 0) {
+        port = serverManager.start();
+        setPortProperty(port);
+      } else {
+        serverManager.start(port);
+      }
       this.getLog().info("Executing Jasmine Specs");
       JasmineResult result = this.executeSpecs(new URL(this.uriScheme + "://" + this.serverHostname + ":" + port));
       this.logResults(result);
