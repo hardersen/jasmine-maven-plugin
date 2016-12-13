@@ -3,7 +3,7 @@
 
   <groupId>com.github.searls</groupId>
   <artifactId>jasmine-maven-plugin</artifactId>
-  <version>2.3-invenia-1-SNAPSHOT</version>
+  <version>2.3-invenia-1</version>
   <packaging>maven-plugin</packaging>
 
   <name>jasmine-maven-plugin</name>
